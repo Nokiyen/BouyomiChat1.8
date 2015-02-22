@@ -1,0 +1,6 @@
+# BouyomiChat1.8
+
+"BouyomiChat" is a Minecraft mod, which enables you to "hear" your chat lines via "Bouyomi-Chan".
+
+Thanks to the original idea by IwatoRocky,
+and the developer of the Bouyomi-Chan, Michiaki.
