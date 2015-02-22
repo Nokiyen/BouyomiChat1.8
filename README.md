@@ -4,3 +4,5 @@
 
 Thanks to the original idea by IwatoRocky,
 and the developer of the Bouyomi-Chan, Michiaki.
+
+This repository is for Minecraft 1.8.
