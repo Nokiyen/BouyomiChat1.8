@@ -1,19 +1,15 @@
 package noki.bouyomichat;
 
-import java.util.Set;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.stats.AchievementList;
-import net.minecraft.util.JsonSerializableSet;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
+import noki.bouyomichat.asm.ClientChatDisplayEvent;
 
 
 /**********
@@ -32,7 +28,7 @@ public class BouyomiEvent {
 	// define member methods.
 	//******************************//
 	@SubscribeEvent
-	public void onChatReceived(ClientChatReceivedEvent event) {
+	public void onChatReceived(ClientChatDisplayEvent event) {
 		
 		//**コンフィグによる読み上げ可否。
 		if(BouyomiConf.readSwitch == false) {
@@ -93,14 +89,6 @@ public class BouyomiEvent {
 		UUID playerID = Minecraft.getMinecraft().thePlayer.getGameProfile().getId();
 		if(targetID.equals(playerID)) {
 			BouyomiChatCore.versionInfo.notifyUpdate(Side.CLIENT);
-			
-			
-/*			Set biomes = BiomeGenBase.explorationBiomesList;
-			for(Object each: biomes) {
-				BouyomiChatCore.log("biome id is %s.", ((BiomeGenBase)each).biomeID);
-			}*/
-			JsonSerializableSet jsonserializableset =
-					(JsonSerializableSet)((EntityPlayer)event.entity).getStatFile().func_150870_b(AchievementList.exploreAllBiomes);
 		}
 					
 	}

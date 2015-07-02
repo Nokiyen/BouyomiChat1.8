@@ -24,7 +24,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
  * @description 棒読みちゃんにチャットを読んでもらうModです。
  * 元祖棒読みちゃんMod作者のIwatoRockyさんのコードを参考にしています(しかし、内容はけっこう違いﾏｽ)。
  */
-@Mod(modid = "BouyomiChat", version = "1.1.1", name = "Bouyomi Chat")
+@Mod(modid = "BouyomiChat", version = "2.0.0", name = "Bouyomi Chat")
 public class BouyomiChatCore {
 	
 	//******************************//
