@@ -48,6 +48,8 @@ public class ASMClassTransformer implements IClassTransformer, Opcodes {
 			CustomClassVisitor customVisitor = new CustomClassVisitor(name, classWriter);
 			classReader.accept(customVisitor, 0);
 			return classWriter.toByteArray();
+			
+			//**ここまで**//
 		} catch (Exception e) {
 			throw new RuntimeException("asm, class transforming failed.", e);
 		}

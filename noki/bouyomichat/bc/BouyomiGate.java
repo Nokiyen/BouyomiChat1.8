@@ -1,10 +1,13 @@
-package noki.bouyomichat;
+package noki.bouyomichat.bc;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.LinkedList;
+
+import noki.bouyomichat.BouyomiChatCore;
+import noki.bouyomichat.BouyomiChatConf;
 
 
 /**********
@@ -126,7 +129,7 @@ public class BouyomiGate {
 			Socket socket = null;
 			try {
 				socket = new Socket();
-				socket.connect(new InetSocketAddress(BouyomiConf.host, BouyomiConf.port));
+				socket.connect(new InetSocketAddress(BouyomiChatConf.host, BouyomiChatConf.port));
 				
 				DataOutputStream output = new DataOutputStream(socket.getOutputStream());
 				output.writeShort(Short.reverseBytes(type.getCommand()));
@@ -144,17 +147,17 @@ public class BouyomiGate {
 			Socket socket = null;
 			try {
 				socket = new Socket();
-				socket.connect(new InetSocketAddress(BouyomiConf.host, BouyomiConf.port));
+				socket.connect(new InetSocketAddress(BouyomiChatConf.host, BouyomiChatConf.port));
 	
 				byte[] b;
-				b = message.getBytes(BouyomiConf.charsetName);
+				b = message.getBytes(BouyomiChatConf.charsetName);
 			
 				DataOutputStream output = new DataOutputStream(socket.getOutputStream());
 				output.writeShort(Short.reverseBytes(type.getCommand()));
-				output.writeShort(Short.reverseBytes(BouyomiConf.speed));
-				output.writeShort(Short.reverseBytes(BouyomiConf.tone));
-				output.writeShort(Short.reverseBytes(BouyomiConf.volume));
-				output.writeShort(Short.reverseBytes(BouyomiConf.voice));
+				output.writeShort(Short.reverseBytes(BouyomiChatConf.speed));
+				output.writeShort(Short.reverseBytes(BouyomiChatConf.tone));
+				output.writeShort(Short.reverseBytes(BouyomiChatConf.volume));
+				output.writeShort(Short.reverseBytes(BouyomiChatConf.voice));
 				output.write(0);
 				output.writeInt(Integer.reverseBytes(b.length));
 				output.write(b, 0, b.length);

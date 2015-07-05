@@ -1,4 +1,4 @@
-package noki.bouyomichat;
+package noki.bouyomichat.bc;
 
 
 /**********

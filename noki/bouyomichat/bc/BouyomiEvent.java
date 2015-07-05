@@ -1,4 +1,4 @@
-package noki.bouyomichat;
+package noki.bouyomichat.bc;
 
 import java.util.UUID;
 import java.util.regex.Matcher;
@@ -9,6 +9,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
+import noki.bouyomichat.BouyomiChatCore;
+import noki.bouyomichat.BouyomiChatConf;
 import noki.bouyomichat.asm.ClientChatDisplayEvent;
 
 
@@ -31,7 +33,11 @@ public class BouyomiEvent {
 	public void onChatReceived(ClientChatDisplayEvent event) {
 		
 		//**コンフィグによる読み上げ可否。
-		if(BouyomiConf.readSwitch == false) {
+		if(BouyomiChatConf.readSwitch == false) {
+			return;
+		}
+		
+		if(event.message == null) {
 			return;
 		}
 
@@ -42,7 +48,7 @@ public class BouyomiEvent {
 		//**内部での文字列操作はごくシンプルに留める。
 
 		//コンフィグにより、名前を読ませない。
-		if(BouyomiConf.readName == false) {
+		if(BouyomiChatConf.readName == false) {
 			Pattern pattern = Pattern.compile("<[a-zA-Z0-9_]{2,16}>\\s|\\s<[a-zA-Z0-9_]{2,16}>$");
 			Matcher matcher = pattern.matcher(message);
 			if(matcher.find()) {
@@ -55,7 +61,7 @@ public class BouyomiEvent {
 			}
 		}
 		//コンフィグにより、前置詞を読ませない。
-		if(BouyomiConf.readPrefix == false) {
+		if(BouyomiChatConf.readPrefix == false) {
 			Pattern pattern = Pattern.compile("\\[\\S+\\]\\s|\\s\\[\\S+\\]$");
 			Matcher matcher = pattern.matcher(message);
 			if(matcher.find()) {

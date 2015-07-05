@@ -1,4 +1,4 @@
-package noki.bouyomichat;
+package noki.bouyomichat.command;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,10 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;
+import noki.bouyomichat.BouyomiChatCore;
+import noki.bouyomichat.BouyomiChatConf;
+import noki.bouyomichat.bc.BouyomiGate;
+import noki.bouyomichat.bc.EBouyomiPostType;
 
 
 /**********
@@ -16,7 +20,7 @@ import net.minecraft.util.ChatComponentText;
  * @description 追加するコマンドを定義します。
  * pause, resume, skip, clear, reload, edu, memo, on, off, help, exec.
  */
-public class BouyomiCommand extends CommandBase {
+public class CommandBouyomi extends CommandBase {
 	
 	//******************************//
 	// define member variables.
@@ -93,7 +97,7 @@ public class BouyomiCommand extends CommandBase {
 				stackBouyomiMessage(I18n.format("bouyomichat.command.clear"));
 				break;
 			case RELOAD:
-				BouyomiConf.setConf();
+				BouyomiChatConf.setConf();
 				sender.addChatMessage(new ChatComponentText(I18n.format("bouyomichat.command.reload", new Object[0])));
 				stackBouyomiMessage(I18n.format("bouyomichat.command.reload"));
 				break;
@@ -118,13 +122,13 @@ public class BouyomiCommand extends CommandBase {
 				stackBouyomiMessage(I18n.format("bouyomichat.command.forget"));
 				break;
 			case ON:
-				BouyomiConf.readSwitch = true;
+				BouyomiChatConf.readSwitch = true;
 				BouyomiGate.instance.stackQueue(EBouyomiPostType.CLEAR);
 				sender.addChatMessage(new ChatComponentText(I18n.format("bouyomichat.command.on", new Object[0])));
 				stackBouyomiMessage(I18n.format("bouyomichat.command.on"));
 				break;
 			case OFF:
-				BouyomiConf.readSwitch = false;
+				BouyomiChatConf.readSwitch = false;
 				sender.addChatMessage(new ChatComponentText(I18n.format("bouyomichat.command.off", new Object[0])));
 				stackBouyomiMessage(I18n.format("bouyomichat.command.off"));
 				break;
@@ -153,7 +157,7 @@ public class BouyomiCommand extends CommandBase {
 	
 	private static void stackBouyomiMessage(String message) {
 		
-		if(BouyomiConf.readBouyomi) {
+		if(BouyomiChatConf.readBouyomi) {
 			BouyomiGate.instance.stackQueue(EBouyomiPostType.TALK, message);
 		}
 		

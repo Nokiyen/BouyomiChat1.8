@@ -14,6 +14,8 @@ import net.minecraftforge.fml.common.ModMetadata;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import noki.bouyomichat.bc.BouyomiEvent;
+import noki.bouyomichat.command.CommandBouyomi;
 
 
 /**********
@@ -46,8 +48,8 @@ public class BouyomiChatCore {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		
-		BouyomiConf.configFile = event.getSuggestedConfigurationFile();
-		BouyomiConf.setConf();
+		BouyomiChatConf.configFile = event.getSuggestedConfigurationFile();
+		BouyomiChatConf.setConf();
 		
 		versionInfo = new VersionInfo(metadata.modId.toLowerCase(), metadata.version, metadata.updateUrl);
 		
@@ -57,14 +59,14 @@ public class BouyomiChatCore {
 	public void Init(FMLInitializationEvent event) {
 		
 		MinecraftForge.EVENT_BUS.register(new BouyomiEvent());
-		ClientCommandHandler.instance.registerCommand(new BouyomiCommand());//	register a command to the client.
+		ClientCommandHandler.instance.registerCommand(new CommandBouyomi());//	register a command to the client.
 		
 	}
 	
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		
-		if(BouyomiConf.autoExecBouyomi == true) {
+		if(BouyomiChatConf.autoExecBouyomi == true) {
 			executeBouyomiChan();
 		}
 	
@@ -82,12 +84,12 @@ public class BouyomiChatCore {
 
 	public static boolean executeBouyomiChan() {
 		
-		File file = new File(BouyomiConf.pathBouyomi);
+		File file = new File(BouyomiChatConf.pathBouyomi);
 		boolean flag = true;
 		if(file.exists()) {
 			try {
 				Runtime rt = Runtime.getRuntime();
-				rt.exec(BouyomiConf.pathBouyomi);
+				rt.exec(BouyomiChatConf.pathBouyomi);
 			} catch (IOException ex) {
 				BouyomiChatCore.log("Can't execute Bouyomi-Chan.");
 				flag = false;

@@ -3,7 +3,6 @@ package noki.bouyomichat;
 import java.io.File;
 
 import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.common.config.Property;
 
 
 /**********
@@ -11,7 +10,7 @@ import net.minecraftforge.common.config.Property;
  *
  * @description このModのコンフィグの値を保存するクラスです。
  */
-public class BouyomiConf {
+public class BouyomiChatConf {
 	
 	//******************************//
 	// define member variables.
@@ -52,54 +51,41 @@ public class BouyomiConf {
 	//******************************//
 	public static void setConf() {
 		
-		Property prop;
+		
 		Configuration cfg = new Configuration(configFile);
+		cfg.defaultEncoding = charsetName;
 		cfg.load();
 		
-		prop = cfg.get("Settings", "host", hostDefault);
-		host = prop.getString();
-		prop = cfg.get("Settings", "port", portDefault);
-		port = prop.getInt();
+		host = cfg.getString("host", "Settings", hostDefault, "");
+		port = cfg.getInt("port", "Settings", portDefault, 0, 65535, "");
 		
-		prop = cfg.get("Settings", "readName", readNameDefault);
-		readName = prop.getBoolean(readNameDefault);
-		prop = cfg.get("Settings", "readPrefix", readPrefixDefault);
-		readPrefix = prop.getBoolean(readPrefixDefault);
-		prop = cfg.get("Settings", "readBouyomi", readBouyomiDefault);
-		readBouyomi = prop.getBoolean(readBouyomiDefault);
-		prop = cfg.get("Settings", "readSwitch", readSwitchDefault);
-		readSwitch = prop.getBoolean(readSwitchDefault);
+		readName = cfg.getBoolean("readName", "Settings", readNameDefault, "");
+		readPrefix = cfg.getBoolean("readPrefix", "Settings", readPrefixDefault, "");
+		readBouyomi = cfg.getBoolean("readBouyomi", "Settings", readBouyomiDefault, "");
+		readSwitch = cfg.getBoolean("readSwitch", "Settings", readSwitchDefault, "");
 		
-		prop = cfg.get("Settings", "speed", speedDefault);
-		speed = (short)prop.getInt();
+		speed = (short)cfg.get("Settings", "speed", speedDefault).getInt();
 		if(speed != -1 && (speed < 50 || 300 < speed)) {
 			speed = speedDefault;
 		}
-		prop = cfg.get("Settings", "tone", toneDefault);
-		tone = (short)prop.getInt();
+		tone = (short)cfg.get("Settings", "tone", toneDefault).getInt();
 		if(tone != -1 && (tone < 50 || 200 < tone)) {
 			tone = toneDefault;
 		}
-		prop = cfg.get("Settings", "volume", volumeDefault);
-		volume = (short)prop.getInt();
+		volume = (short)cfg.get("Settings", "volume", volumeDefault).getInt();
 		if(volume != -1 && (volume < 0 || 100 < volume)) {
 			volume = volumeDefault;
 		}
-		prop = cfg.get("Settings", "voice", voiceDefault);
-		voice = (short)prop.getInt();
+		voice = (short)cfg.get("Settings", "voice", voiceDefault).getInt();
 		if(voice != 0 && (voice < 1 || 8 < voice)) {
 			voice = voiceDefault;
 		}
 		
-		prop = cfg.get("Settings", "pathBouyomi", "");
-		pathBouyomi = prop.getString();
-		pathBouyomi = pathBouyomi.replaceAll("\\\\", "\\\\\\\\");
-		
-		prop = cfg.get("Settings", "autoExecBouyomi", true);
-		autoExecBouyomi = prop.getBoolean(true);
-		
+		pathBouyomi = cfg.getString("pathBouyomi", "Settings", "", "").replaceAll("\\\\", "\\\\\\\\");
+		autoExecBouyomi = cfg.getBoolean("autoExecBouyomi", "Settings", true, "");
 		
 		cfg.save();
+		
 	}
 
 }
